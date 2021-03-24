@@ -1,4 +1,4 @@
-# Coffe Supply Chain - v1.0
+# Coffe Supply Chain - v1.1
 
 ## Versions
 
