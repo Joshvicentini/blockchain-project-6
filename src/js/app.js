@@ -111,6 +111,13 @@ App = {
             var SupplyChainArtifact = data;
             App.contracts.SupplyChain = TruffleContract(SupplyChainArtifact);
             App.contracts.SupplyChain.setProvider(App.web3Provider);
+
+            console.log("web3: ", web3);
+            console.log("web3 eth: ", web3.eth);
+            console.log("web3 eth defaultAccount: ", web3.eth.defaultAccount);
+            console.log("web3 eth accounts: ", web3.eth.accounts);
+
+            web3.eth.defaultAccount = web3.eth.accounts[0];
             
             App.fetchItemBufferOne();
             App.fetchItemBufferTwo();
@@ -172,7 +179,6 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            console.log("Harvesting item with farmer: ", App.metamaskAccountID);
             return instance.harvestItem(
                 App.upc, 
                 App.metamaskAccountID, 
@@ -268,13 +274,25 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
+            return instance.addRetailer(App.metamaskAccountID, {from: App.metamaskAccountID});
+        }).then(function(role){
+            console.log('Role: ', role);
             return instance.receiveItem(App.upc, {from: App.metamaskAccountID});
-        }).then(function(result) {
+        }).then(function(result){
             $("#ftc-item").text(result);
             console.log('receiveItem',result);
-        }).catch(function(err) {
+        }).catch(function(err){
             console.log(err.message);
         });
+
+        // App.contracts.SupplyChain.deployed().then(function(instance) {
+        //     return instance.receiveItem(App.upc, {from: App.metamaskAccountID});
+        // }).then(function(result) {
+        //     $("#ftc-item").text(result);
+        //     console.log('receiveItem',result);
+        // }).catch(function(err) {
+        //     console.log(err.message);
+        // });
     },
 
     purchaseItem: function (event) {
@@ -282,13 +300,25 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
+            return instance.addConsumer(App.metamaskAccountID, {from: App.metamaskAccountID});
+        }).then(function(role){
+            console.log('Role: ', role);
             return instance.purchaseItem(App.upc, {from: App.metamaskAccountID});
-        }).then(function(result) {
+        }).then(function(result){
             $("#ftc-item").text(result);
             console.log('purchaseItem',result);
-        }).catch(function(err) {
+        }).catch(function(err){
             console.log(err.message);
         });
+
+        // App.contracts.SupplyChain.deployed().then(function(instance) {
+        //     return instance.purchaseItem(App.upc, {from: App.metamaskAccountID});
+        // }).then(function(result) {
+        //     $("#ftc-item").text(result);
+        //     console.log('purchaseItem',result);
+        // }).catch(function(err) {
+        //     console.log(err.message);
+        // });
     },
 
     fetchItemBufferOne: function () {

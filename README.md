@@ -17,4 +17,5 @@ Web3.js v1.2.9
 Used to deploy the contract on Rinkeby Testnet
 
 ##Contract address
-<a href="https://rinkeby.etherscan.io/address/0x0963eB0AE289Be55c5400b988701Ff3E16DC32DB" target="_blank">0x0963eB0AE289Be55c5400b988701Ff3E16DC32DB</a>
+<a href="https://rinkeby.etherscan.io/address/0xc8CCAAB67Be1A215701CC3935B3CEea0eb18d5F8" target="_blank">0xc8CCAAB67Be1A215701CC3935B3CEea0eb18d5F8</a>
+
